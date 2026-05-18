@@ -1,9 +1,9 @@
 app_name = "biometric_sync"
-app_title = "biometric_sync"
-app_publisher = "info@aakvatech.com"
-app_description = "biometric_sync"
-app_email = "info@aakvatech.com"
-app_license = "mit"
+app_title = "Biometric Sync"
+app_publisher = "Innocent P Metumba"
+app_description = "Biometric Attendance Sync for ERPNext/HRMS"
+app_email = "innocntphenelist@gmail.com"
+app_license = "MIT"
 
 # Apps
 # ------------------
@@ -15,7 +15,7 @@ app_license = "mit"
 # 	{
 # 		"name": "biometric_sync",
 # 		"logo": "/assets/biometric_sync/logo.png",
-# 		"title": "biometric_sync",
+# 		"title": "Biometric Sync",
 # 		"route": "/biometric_sync",
 # 		"has_permission": "biometric_sync.api.permission.has_app_permission"
 # 	}
@@ -35,10 +35,6 @@ app_license = "mit"
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "biometric_sync/public/scss/website"
 
-# include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
-# webform_include_css = {"doctype": "public/css/doctype.css"}
-
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 
@@ -47,11 +43,6 @@ app_license = "mit"
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
-# Svg Icons
-# ------------------
-# include app icons in desk
-# app_include_icons = "biometric_sync/public/icons.svg"
 
 # Home Pages
 # ----------
@@ -93,17 +84,11 @@ app_license = "mit"
 
 # Integration Setup
 # ------------------
-# To set up dependencies/integrations with other apps
-# Name of the app being installed is passed as an argument
-
 # before_app_install = "biometric_sync.utils.before_app_install"
 # after_app_install = "biometric_sync.utils.after_app_install"
 
 # Integration Cleanup
 # -------------------
-# To clean up dependencies/integrations with other apps
-# Name of the app being uninstalled is passed as an argument
-
 # before_app_uninstall = "biometric_sync.utils.before_app_uninstall"
 # after_app_uninstall = "biometric_sync.utils.after_app_uninstall"
 
@@ -137,6 +122,7 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
+doc_events = {}
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
@@ -148,23 +134,24 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"biometric_sync.tasks.all"
-# 	],
-# 	"daily": [
-# 		"biometric_sync.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"biometric_sync.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"biometric_sync.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"biometric_sync.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    "all": [
+        "biometric_sync.scheduled_tasks.sync_attendance.run_sync",
+        "biometric_sync.scheduled_tasks.biotime_sync.run_biotime_sync"
+    ],
+    # "daily": [
+    # 	"biometric_sync.tasks.daily"
+    # ],
+    # "hourly": [
+    # 	"biometric_sync.tasks.hourly"
+    # ],
+    # "weekly": [
+    # 	"biometric_sync.tasks.weekly"
+    # ],
+    # "monthly": [
+    # 	"biometric_sync.tasks.monthly"
+    # ],
+}
 
 # Testing
 # -------
@@ -178,15 +165,11 @@ app_license = "mit"
 # 	"frappe.desk.doctype.event.event.get_events": "biometric_sync.event.get_events"
 # }
 #
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
 # 	"Task": "biometric_sync.task.get_dashboard_data"
 # }
 
 # exempt linked doctypes from being automatically cancelled
-#
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
 
 # Ignore links to specified DocTypes when deleting documents
@@ -242,8 +225,12 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
-# Translation
-# ------------
-# List of apps whose translatable strings should be excluded from this app's translations.
-# ignore_translatable_strings_from = []
+# Fixtures
+# --------
 
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [["module", "=", "Biometric Sync"]]
+    }
+]

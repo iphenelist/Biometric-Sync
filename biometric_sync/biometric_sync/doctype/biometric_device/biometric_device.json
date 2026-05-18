@@ -1,0 +1,153 @@
+{
+ "actions": [],
+ "autoname": "field:device_name",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "device_name",
+  "device_id",
+  "protocol",
+  "ip_address",
+  "column_break_1",
+  "branch",
+  "location_description",
+  "punch_direction",
+  "is_active",
+  "shift_type",
+  "clear_from_device_on_fetch",
+  "section_break_status",
+  "last_synced_on",
+  "last_sync_status",
+  "last_records_pushed"
+ ],
+ "fields": [
+  {
+   "fieldname": "device_name",
+   "fieldtype": "Data",
+   "label": "Device Name",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "e.g. Main Gate, Office Block A"
+  },
+  {
+   "fieldname": "device_id",
+   "fieldtype": "Data",
+   "label": "Device ID",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "The numeric ID configured on the physical device"
+  },
+  {
+   "default": "ZKTeco Direct",
+   "fieldname": "protocol",
+   "fieldtype": "Select",
+   "label": "Protocol",
+   "options": "ZKTeco Direct\nBioTime",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "ip_address",
+   "fieldtype": "Data",
+   "label": "IP Address",
+   "in_list_view": 1,
+   "description": "e.g. 192.168.1.100 (not required for BioTime devices)"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "location_description",
+   "fieldtype": "Small Text",
+   "label": "Location Description"
+  },
+  {
+   "fieldname": "punch_direction",
+   "fieldtype": "Select",
+   "label": "Punch Direction",
+   "options": "AUTO\nIN\nOUT",
+   "default": "AUTO",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "label": "Shift Type",
+   "options": "Shift Type",
+   "description": "Shift Type whose 'Last Sync of Checkin' will be updated after each sync, triggering Auto Attendance processing"
+  },
+  {
+   "fieldname": "clear_from_device_on_fetch",
+   "fieldtype": "Check",
+   "label": "Clear Logs from Device After Fetch",
+   "default": "0",
+   "description": "If enabled, attendance logs are deleted from the physical device after a successful fetch. Use with caution — this cannot be undone."
+  },
+  {
+   "fieldname": "section_break_status",
+   "fieldtype": "Section Break",
+   "label": "Sync Status"
+  },
+  {
+   "fieldname": "last_synced_on",
+   "fieldtype": "Datetime",
+   "label": "Last Synced On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_sync_status",
+   "fieldtype": "Select",
+   "label": "Last Sync Status",
+   "options": "\nSuccess\nFailed\nNo Data",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "last_records_pushed",
+   "fieldtype": "Int",
+   "label": "Last Records Pushed",
+   "read_only": 1
+  }
+ ],
+ "module": "Biometric Sync",
+ "name": "Biometric Device",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "HR Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "device_name",
+ "track_changes": 1
+}

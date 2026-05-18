@@ -1,0 +1,244 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tab_device_sync",
+  "erpnext_connection_section",
+  "erpnext_url",
+  "erpnext_version",
+  "column_break_1",
+  "api_key",
+  "api_secret",
+  "device_protocol_section",
+  "protocol",
+  "timeout",
+  "column_break_2",
+  "port",
+  "sync_behaviour_section",
+  "pull_frequency",
+  "import_start_date",
+  "max_retry_attempts",
+  "column_break_gtqs",
+  "logs_directory",
+  "is_enabled",
+  "use_data_staging",
+  "tab_biotime",
+  "biotime_connection_section",
+  "biotime_url",
+  "biotime_username",
+  "column_break_biotime_1",
+  "biotime_password",
+  "biotime_page_size",
+  "biotime_options_section",
+  "enable_biotime",
+  "biotime_verify_ssl"
+ ],
+ "fields": [
+  {
+   "fieldname": "tab_device_sync",
+   "fieldtype": "Tab Break",
+   "label": "Device Sync"
+  },
+  {
+   "fieldname": "erpnext_connection_section",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Connection"
+  },
+  {
+   "description": "e.g. https://erp.mycompany.com",
+   "fieldname": "erpnext_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ERPNext URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "API Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_secret",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "API Secret",
+   "reqd": 1
+  },
+  {
+   "default": "15",
+   "description": "e.g. 14 or 15",
+   "fieldname": "erpnext_version",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "ERPNext Version",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "device_protocol_section",
+   "fieldtype": "Section Break",
+   "label": "Device Protocol"
+  },
+  {
+   "default": "ZKTeco",
+   "fieldname": "protocol",
+   "fieldtype": "Select",
+   "label": "Protocol",
+   "options": "ZKTeco\nESSL",
+   "reqd": 1
+  },
+  {
+   "default": "4370",
+   "description": "Default ZKTeco port is 4370",
+   "fieldname": "port",
+   "fieldtype": "Int",
+   "label": "Port",
+   "reqd": 1
+  },
+  {
+   "default": "10",
+   "fieldname": "timeout",
+   "fieldtype": "Int",
+   "label": "Connection Timeout (seconds)"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sync_behaviour_section",
+   "fieldtype": "Section Break",
+   "label": "Sync Behaviour"
+  },
+  {
+   "default": "60",
+   "description": "How often to pull logs from devices",
+   "fieldname": "pull_frequency",
+   "fieldtype": "Int",
+   "label": "Pull Frequency (minutes)",
+   "reqd": 1
+  },
+  {
+   "description": "Only import punches after this date. Leave blank for all.",
+   "fieldname": "import_start_date",
+   "fieldtype": "Date",
+   "label": "Import Start Date"
+  },
+  {
+   "default": "3",
+   "description": "How many times to retry a failed device connection before marking it as Failed",
+   "fieldname": "max_retry_attempts",
+   "fieldtype": "Int",
+   "label": "Max Retry Attempts"
+  },
+  {
+   "default": "/tmp/biometric_sync_logs",
+   "description": "Directory to store sync logs",
+   "fieldname": "logs_directory",
+   "fieldtype": "Data",
+   "label": "Logs Directory"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Auto Sync"
+  },
+  {
+   "fieldname": "column_break_gtqs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "use_data_staging",
+   "fieldtype": "Check",
+   "label": "Use data staging?"
+  },
+  {
+   "fieldname": "tab_biotime",
+   "fieldtype": "Tab Break",
+   "label": "BioTime"
+  },
+  {
+   "fieldname": "biotime_connection_section",
+   "fieldtype": "Section Break",
+   "label": "BioTime Connection"
+  },
+  {
+   "description": "e.g. http://biotime.mycompany.com",
+   "fieldname": "biotime_url",
+   "fieldtype": "Data",
+   "label": "BioTime URL"
+  },
+  {
+   "fieldname": "biotime_username",
+   "fieldtype": "Data",
+   "label": "Username"
+  },
+  {
+   "fieldname": "column_break_biotime_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "biotime_password",
+   "fieldtype": "Password",
+   "label": "Password"
+  },
+  {
+   "default": "100",
+   "description": "Number of records to fetch per API page",
+   "fieldname": "biotime_page_size",
+   "fieldtype": "Int",
+   "label": "Records Per Page"
+  },
+  {
+   "fieldname": "biotime_options_section",
+   "fieldtype": "Section Break",
+   "label": "BioTime Options"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_biotime",
+   "fieldtype": "Check",
+   "label": "Enable BioTime Sync"
+  },
+  {
+   "default": "1",
+   "description": "Uncheck only if your BioTime server uses a self-signed SSL certificate",
+   "fieldname": "biotime_verify_ssl",
+   "fieldtype": "Check",
+   "label": "Verify SSL Certificate"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-13 12:04:23.271847",
+ "modified_by": "Administrator",
+ "module": "Biometric Sync",
+ "name": "Biometric Sync Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

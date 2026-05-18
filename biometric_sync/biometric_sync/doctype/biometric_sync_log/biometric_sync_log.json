@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "autoname": "format:BSLOG-{YYYY}-{MM}-{DD}-{###}",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "device",
+  "sync_start",
+  "sync_end",
+  "status",
+  "column_break_1",
+  "records_fetched",
+  "records_pushed",
+  "records_skipped",
+  "section_break_error",
+  "error_message",
+  "section_break_raw",
+  "raw_log"
+ ],
+ "fields": [
+  {
+   "fieldname": "device",
+   "fieldtype": "Link",
+   "label": "Device",
+   "options": "Biometric Device",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sync_start",
+   "fieldtype": "Datetime",
+   "label": "Sync Start",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sync_end",
+   "fieldtype": "Datetime",
+   "label": "Sync End"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Success\nFailed\nNo Data",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "records_fetched",
+   "fieldtype": "Int",
+   "label": "Records Fetched",
+   "default": "0",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "records_pushed",
+   "fieldtype": "Int",
+   "label": "Records Pushed",
+   "default": "0",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "records_skipped",
+   "fieldtype": "Int",
+   "label": "Records Skipped (Duplicates)",
+   "default": "0"
+  },
+  {
+   "fieldname": "section_break_error",
+   "fieldtype": "Section Break",
+   "label": "Error Details",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Long Text",
+   "label": "Error Message",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_raw",
+   "fieldtype": "Section Break",
+   "label": "Raw Log",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "raw_log",
+   "fieldtype": "Code",
+   "label": "Raw Log",
+   "options": "Text",
+   "read_only": 1
+  }
+ ],
+ "in_create": 1,
+ "module": "Biometric Sync",
+ "name": "Biometric Sync Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1
+  },
+  {
+   "read": 1,
+   "role": "HR Manager"
+  }
+ ],
+ "sort_field": "sync_start",
+ "sort_order": "DESC",
+ "title_field": "device"
+}

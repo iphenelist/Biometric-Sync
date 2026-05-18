@@ -1,0 +1,13 @@
+{
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "Page",
+ "module": "Biometric Sync",
+ "name": "biometric-sync-dashboard",
+ "page_name": "biometric-sync-dashboard",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "HR Manager"}
+ ],
+ "standard": "Yes",
+ "title": "Biometric Sync Dashboard"
+}

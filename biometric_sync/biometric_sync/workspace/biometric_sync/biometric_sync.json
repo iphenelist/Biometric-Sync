@@ -1,0 +1,40 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"xyhqepwm4i\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Biometric Sync Dashboard\",\"col\":3}},{\"id\":\"wkpqmrnb1a\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Biometric Device\",\"col\":3}},{\"id\":\"plmqokne2b\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Biometric Sync Settings\",\"col\":3}},{\"id\":\"rstuvwxyz3c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Biometric Sync Log\",\"col\":3}}]",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "Workspace",
+ "icon": "time",
+ "is_hidden": 0,
+ "label": "Biometric Sync",
+ "module": "Biometric Sync",
+ "name": "Biometric Sync",
+ "onboarding": "",
+ "public": 1,
+ "roles": [],
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "format": "{} Active",
+   "label": "Biometric Sync Dashboard",
+   "link_to": "biometric-sync-dashboard",
+   "stats_filter": "{\"is_active\": 1}",
+   "type": "Page"
+  },
+  {
+   "label": "Biometric Device",
+   "link_to": "Biometric Device",
+   "type": "DocType"
+  },
+  {
+   "label": "Biometric Sync Settings",
+   "link_to": "Biometric Sync Settings",
+   "type": "DocType"
+  },
+  {
+   "label": "Biometric Sync Log",
+   "link_to": "Biometric Sync Log",
+   "type": "DocType"
+  }
+ ],
+ "title": "Biometric Sync"
+}
