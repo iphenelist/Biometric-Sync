@@ -1,4 +1,4 @@
-# Biometric Sync — Frappe App
+# Biometric Sync App
 
 A Frappe/ERPNext custom app that syncs ZKTeco/ESSL biometric attendance device data
 directly into ERPNext Employee Checkin records, feeding the Auto Attendance system.
