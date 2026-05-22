@@ -202,6 +202,11 @@ def _pull_from_device(device, params):
 
 # ── Push to ERPNext — staging path ────────────────────────────────────────────
 
+_STAGING_BATCH_SIZE = 50
+_STAGING_MAX_RETRIES = 3
+_STAGING_TIMEOUT = 60
+
+
 def _push_bulk_to_staging_api(records, params):
     url = f"{params['erpnext_url']}/api/method/biometric_client.biometric_client.api.upload_bulk_biometric_data"
     headers = {
@@ -210,19 +215,54 @@ def _push_bulk_to_staging_api(records, params):
         "Accept": "application/json",
     }
 
-    response = requests.post(url, headers=headers, json=records, timeout=60)
-    # Frappe wraps whitelisted method responses under a "message" key
-    data = response.json().get("message", {})
+    total_pushed = 0
+    total_skipped = 0
 
-    if response.status_code == 200 and data.get("success"):
-        details = data.get("details", {})
-        pushed = len(details.get("success", []))
-        skipped = len(details.get("duplicates", [])) + len(details.get("failed", []))
-        return pushed, skipped
+    for batch_start in range(0, len(records), _STAGING_BATCH_SIZE):
+        batch = records[batch_start: batch_start + _STAGING_BATCH_SIZE]
+        pushed, skipped = _post_staging_batch_with_retry(batch, url, headers)
+        total_pushed += pushed
+        total_skipped += skipped
 
-    error_msg = data.get("message") or str(response.status_code)
-    frappe.log_error(title="Biometric Staging API Error", message=error_msg)
-    raise Exception(f"Staging API returned {response.status_code}: {error_msg}")
+    return total_pushed, total_skipped
+
+
+def _post_staging_batch_with_retry(batch, url, headers):
+    last_exc = None
+    for attempt in range(1, _STAGING_MAX_RETRIES + 1):
+        try:
+            response = requests.post(url, headers=headers, json=batch, timeout=_STAGING_TIMEOUT)
+            # Frappe wraps whitelisted method responses under a "message" key
+            data = response.json().get("message", {})
+
+            if response.status_code == 200 and data.get("success"):
+                details = data.get("details", {})
+                pushed = len(details.get("success", []))
+                skipped = len(details.get("duplicates", [])) + len(details.get("failed", []))
+                return pushed, skipped
+
+            error_msg = data.get("message") or str(response.status_code)
+            raise Exception(f"Staging API returned {response.status_code}: {error_msg}")
+
+        except requests.exceptions.Timeout as e:
+            last_exc = e
+            if attempt < _STAGING_MAX_RETRIES:
+                frappe.logger().warning(
+                    f"Biometric Staging API: batch of {len(batch)} timed out "
+                    f"(attempt {attempt}/{_STAGING_MAX_RETRIES}). Retrying in 5s..."
+                )
+                time.sleep(5)
+        except Exception as e:
+            last_exc = e
+            if attempt < _STAGING_MAX_RETRIES:
+                frappe.logger().warning(
+                    f"Biometric Staging API: attempt {attempt}/{_STAGING_MAX_RETRIES} failed "
+                    f"({e}). Retrying in 5s..."
+                )
+                time.sleep(5)
+
+    frappe.log_error(title="Biometric Staging API Error", message=str(last_exc))
+    raise last_exc
 
 
 # ── Push to ERPNext — normal path ─────────────────────────────────────────────
