@@ -10,7 +10,6 @@
   "protocol",
   "ip_address",
   "column_break_1",
-  "branch",
   "location_description",
   "punch_direction",
   "is_active",
@@ -57,12 +56,6 @@
   {
    "fieldname": "column_break_1",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "branch",
-   "fieldtype": "Link",
-   "label": "Branch",
-   "options": "Branch"
   },
   {
    "fieldname": "location_description",

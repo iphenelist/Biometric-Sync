@@ -109,7 +109,6 @@ Fill in:
 | Device Name | Main Gate |
 | Device ID | 1 (from physical device) |
 | IP Address | 192.168.1.100 |
-| Branch | Head Office |
 | Punch Direction | AUTO |
 | Is Active | ✅ |
 
