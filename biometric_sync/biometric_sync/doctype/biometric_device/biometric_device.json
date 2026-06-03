@@ -1,11 +1,10 @@
 {
  "actions": [],
- "autoname": "field:device_name",
+ "autoname": "field:device_id",
  "creation": "2024-01-01 00:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "device_name",
   "device_id",
   "protocol",
   "ip_address",
@@ -21,14 +20,6 @@
   "last_records_pushed"
  ],
  "fields": [
-  {
-   "fieldname": "device_name",
-   "fieldtype": "Data",
-   "label": "Device Name",
-   "reqd": 1,
-   "in_list_view": 1,
-   "description": "e.g. Main Gate, Office Block A"
-  },
   {
    "fieldname": "device_id",
    "fieldtype": "Data",
@@ -141,6 +132,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "device_name",
+ "title_field": "device_id",
  "track_changes": 1
 }

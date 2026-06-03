@@ -1,13 +1,13 @@
+import re
+
 import frappe
 from frappe.model.document import Document
-import re
 
 
 class BiometricDevice(Document):
 
     def validate(self):
         self._validate_ip()
-        self._validate_device_id()
 
     def _validate_ip(self):
         ip_pattern = r"^(\d{1,3}\.){3}\d{1,3}$"
@@ -16,10 +16,6 @@ class BiometricDevice(Document):
         parts = self.ip_address.split(".")
         if any(int(p) > 255 for p in parts):
             frappe.throw(f"Invalid IP address: {self.ip_address}")
-
-    def _validate_device_id(self):
-        if not str(self.device_id).strip().isdigit():
-            frappe.throw("Device ID must be a numeric value.")
 
     def update_sync_status(self, status, records_pushed=0):
         """Called after each sync attempt to update status fields."""
