@@ -44,7 +44,7 @@ def run_sync():
             sync_single_device(device, settings)
         except Exception:
             frappe.log_error(
-                title=f"Biometric Sync Failed: {device.device_name}",
+                title=f"Biometric Sync Failed: {device.name}",
                 message=traceback.format_exc()
             )
 
@@ -149,7 +149,7 @@ def _pull_from_device_with_retry(device, params, max_retries):
             last_exc = e
             if attempt < max_retries:
                 frappe.logger().warning(
-                    f"Biometric Sync: {device.device_name} attempt {attempt}/{max_retries} failed "
+                    f"Biometric Sync: {device.name} attempt {attempt}/{max_retries} failed "
                     f"({e}). Retrying in 5s..."
                 )
                 time.sleep(5)

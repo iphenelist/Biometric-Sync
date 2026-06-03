@@ -90,7 +90,7 @@ frappe.pages["biometric-sync-dashboard"].on_page_load = function (wrapper) {
 
             return `
                 <tr>
-                    <td><a href="/app/biometric-device/${d.name}">${d.device_name}</a></td>
+                    <td><a href="/app/biometric-device/${d.name}">${d.device_id}</a></td>
                     <td>${d.ip_address}</td>
                     <td>${d.device_id}</td>
                     <td>${active_badge}</td>
@@ -106,7 +106,7 @@ frappe.pages["biometric-sync-dashboard"].on_page_load = function (wrapper) {
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>${__("Device Name")}</th>
+                        <th>${__("Device ID")}</th>
                         <th>${__("IP Address")}</th>
                         <th>${__("Device ID")}</th>
                         <th>${__("Status")}</th>

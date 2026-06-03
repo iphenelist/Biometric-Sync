@@ -7,10 +7,10 @@ def get_dashboard_data():
     devices = frappe.get_all(
         "Biometric Device",
         fields=[
-            "name", "device_name", "ip_address", "device_id",
+            "name", "ip_address", "device_id",
             "is_active", "last_synced_on", "last_sync_status", "last_records_pushed"
         ],
-        order_by="device_name asc"
+        order_by="device_id asc"
     )
 
     recent_logs = frappe.get_all(
@@ -65,6 +65,6 @@ def sync_all_devices():
     for d in devices:
         device = frappe.get_doc("Biometric Device", d.name)
         result = sync_single_device(device, settings)
-        results.append({"device": device.device_name, **result})
+        results.append({"device": device.name, **result})
 
     return results
