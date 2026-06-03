@@ -5,7 +5,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "shift_type_name"
+  "shift_type_name",
+  "last_sync_of_checkin"
  ],
  "fields": [
   {
@@ -15,6 +16,12 @@
    "reqd": 1,
    "in_list_view": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "last_sync_of_checkin",
+   "fieldtype": "Datetime",
+   "label": "Last Sync of Checkin",
+   "read_only": 1
   }
  ],
  "module": "Biometric Sync",
