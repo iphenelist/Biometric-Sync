@@ -134,7 +134,7 @@ def sync_single_device(device, settings):
             raw_log="\n".join(raw_lines),
             sync_start=sync_start
         )
-        frappe.log_error(title=f"Biometric Sync Error: {device.device_name}", message=err)
+        frappe.log_error(title=f"Biometric Sync Error: {device.name}", message=err)
         return {"success": False, "records_pushed": 0, "error": str(e)}
 
 
