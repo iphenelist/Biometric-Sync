@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "autoname": "field:device_id",
- "creation": "2024-01-01 00:00:00.000000",
+ "creation": "2024-01-01 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -21,28 +22,29 @@
  ],
  "fields": [
   {
+   "description": "The numeric ID configured on the physical device",
    "fieldname": "device_id",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Device ID",
    "reqd": 1,
-   "in_list_view": 1,
-   "description": "The numeric ID configured on the physical device"
+   "unique": 1
   },
   {
    "default": "ZKTeco Direct",
    "fieldname": "protocol",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Protocol",
    "options": "ZKTeco Direct\nBioTime",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
+   "description": "e.g. 192.168.1.100 (not required for BioTime devices)",
    "fieldname": "ip_address",
    "fieldtype": "Data",
-   "label": "IP Address",
    "in_list_view": 1,
-   "description": "e.g. 192.168.1.100 (not required for BioTime devices)"
+   "label": "IP Address"
   },
   {
    "fieldname": "column_break_1",
@@ -54,34 +56,34 @@
    "label": "Location Description"
   },
   {
+   "default": "AUTO",
    "fieldname": "punch_direction",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Punch Direction",
    "options": "AUTO\nIN\nOUT",
-   "default": "AUTO",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
+   "default": "1",
    "fieldname": "is_active",
    "fieldtype": "Check",
-   "label": "Is Active",
-   "default": "1",
-   "in_list_view": 1
+   "in_list_view": 1,
+   "label": "Is Active"
   },
   {
+   "description": "Shift Types whose 'Last Sync of Checkin' will be updated after each sync, triggering Auto Attendance processing",
    "fieldname": "shift_type",
    "fieldtype": "Table MultiSelect",
    "label": "Shift Type",
-   "options": "Biometric Device Shift Type",
-   "description": "Shift Types whose 'Last Sync of Checkin' will be updated after each sync, triggering Auto Attendance processing"
+   "options": "Biometric Device Shift Type"
   },
   {
+   "default": "0",
+   "description": "If enabled, attendance logs are deleted from the physical device after a successful fetch. Use with caution \u2014 this cannot be undone.",
    "fieldname": "clear_from_device_on_fetch",
    "fieldtype": "Check",
-   "label": "Clear Logs from Device After Fetch",
-   "default": "0",
-   "description": "If enabled, attendance logs are deleted from the physical device after a successful fetch. Use with caution — this cannot be undone."
+   "label": "Clear Logs from Device After Fetch"
   },
   {
    "fieldname": "section_break_status",
@@ -97,10 +99,10 @@
   {
    "fieldname": "last_sync_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Last Sync Status",
    "options": "\nSuccess\nFailed\nNo Data",
-   "read_only": 1,
-   "in_list_view": 1
+   "read_only": 1
   },
   {
    "fieldname": "last_records_pushed",
@@ -109,6 +111,9 @@
    "read_only": 1
   }
  ],
+ "links": [],
+ "modified": "2026-06-04 12:45:14.731340",
+ "modified_by": "Administrator",
  "module": "Biometric Sync",
  "name": "Biometric Device",
  "owner": "Administrator",
@@ -130,8 +135,10 @@
    "role": "HR Manager"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "device_id",
  "track_changes": 1
 }
