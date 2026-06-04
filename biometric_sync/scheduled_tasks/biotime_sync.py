@@ -303,11 +303,12 @@ def _resolve_log_type(log_entry, punch_direction):
 def _update_shift_type_sync(device):
     if not device.shift_type:
         return
-    frappe.db.set_value(
-        "Shift Type",
-        device.shift_type,
-        "last_sync_of_checkin",
-        now_datetime(),
-        update_modified=False
-    )
+    for row in device.shift_type:
+        frappe.db.set_value(
+            "Shift Type",
+            row.shift_type,
+            "last_sync_of_checkin",
+            now_datetime(),
+            update_modified=False
+        )
     frappe.db.commit()

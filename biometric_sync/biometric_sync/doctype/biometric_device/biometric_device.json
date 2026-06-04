@@ -71,10 +71,10 @@
   },
   {
    "fieldname": "shift_type",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "Shift Type",
-   "options": "Shift Type",
-   "description": "Shift Type whose 'Last Sync of Checkin' will be updated after each sync, triggering Auto Attendance processing"
+   "options": "Biometric Device Shift Type",
+   "description": "Shift Types whose 'Last Sync of Checkin' will be updated after each sync, triggering Auto Attendance processing"
   },
   {
    "fieldname": "clear_from_device_on_fetch",

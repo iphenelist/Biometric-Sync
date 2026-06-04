@@ -90,6 +90,7 @@ def sync_single_device(device, settings):
 
         pushed = 0
         skipped = 0
+        skip_reasons = {}
 
         if params.get("use_data_staging"):
             records = []
@@ -108,8 +109,11 @@ def sync_single_device(device, settings):
                 result = _push_checkin_via_api(log_entry, device, params)
                 if result == "pushed":
                     pushed += 1
-                elif result == "skipped":
+                else:
                     skipped += 1
+                    skip_reasons.setdefault(result, []).append(str(log_entry.user_id))
+
+        skip_summary = _build_skip_summary(skip_reasons) if skip_reasons else None
 
         device.update_sync_status("Success", pushed)
         _update_shift_type_sync(device)
@@ -119,6 +123,7 @@ def sync_single_device(device, settings):
             records_fetched=len(logs),
             records_pushed=pushed,
             records_skipped=skipped,
+            error_message=skip_summary,
             raw_log="\n".join(raw_lines),
             sync_start=sync_start
         )
@@ -268,22 +273,22 @@ def _post_staging_batch_with_retry(batch, url, headers):
 # ── Push to ERPNext — normal path ─────────────────────────────────────────────
 
 def _push_checkin_via_api(log_entry, device, params):
-    employee = _get_employee(log_entry.user_id)
-    if not employee:
-        return "skipped"
-
     log_type = _resolve_log_type(log_entry, device.punch_direction)
-    url = f"{params['erpnext_url']}/api/resource/Employee Checkin"
+    url = (
+        f"{params['erpnext_url']}/api/method/"
+        "hrms.hr.doctype.employee_checkin.employee_checkin.add_log_based_on_employee_field"
+    )
     headers = {
         "Authorization": f"token {params['api_key']}:{params['api_secret']}",
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
     payload = {
-        "employee": employee,
-        "time": str(log_entry.timestamp),
-        "log_type": log_type,
+        "employee_field_value": str(log_entry.user_id),
+        "timestamp": str(log_entry.timestamp),
         "device_id": device.device_id,
+        "log_type": log_type,
+        "employee_fieldname": "attendance_device_id",
     }
 
     try:
@@ -292,29 +297,23 @@ def _push_checkin_via_api(log_entry, device, params):
             return "pushed"
         error_body = response.text or ""
         if "DuplicateEntryError" in error_body or "already exists" in error_body.lower():
-            return "skipped"
+            return "duplicate"
+        if "does not match" in error_body.lower() or "no employee" in error_body.lower():
+            return "no_employee_mapping"
         frappe.log_error(
             title=f"Employee Checkin API Error [{device.device_id}]",
             message=f"Status {response.status_code}: {error_body[:500]}"
         )
-        return "skipped"
+        return f"api_error_{response.status_code}"
     except Exception as e:
         frappe.log_error(
             title=f"Employee Checkin API Exception [{device.device_id}]",
             message=str(e)
         )
-        return "skipped"
+        return "api_exception"
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
-
-def _get_employee(device_user_id):
-    return frappe.db.get_value(
-        "Employee",
-        {"attendance_device_id": str(device_user_id), "status": "Active"},
-        "name"
-    )
-
 
 def _resolve_log_type(log_entry, punch_direction):
     if punch_direction == "IN":
@@ -328,14 +327,23 @@ def _resolve_log_type(log_entry, punch_direction):
         return "IN"
 
 
+def _build_skip_summary(skip_reasons):
+    lines = ["Skip reasons:"]
+    for reason, user_ids in skip_reasons.items():
+        unique_ids = sorted(set(user_ids))
+        lines.append(f"  {reason} ({len(user_ids)} records) — device user IDs: {', '.join(unique_ids)}")
+    return "\n".join(lines)
+
+
 def _update_shift_type_sync(device):
     if not device.shift_type:
         return
-    frappe.db.set_value(
-        "Shift Type",
-        device.shift_type,
-        "last_sync_of_checkin",
-        now_datetime(),
-        update_modified=False
-    )
+    for row in device.shift_type:
+        frappe.db.set_value(
+            "Shift Type",
+            row.shift_type,
+            "last_sync_of_checkin",
+            now_datetime(),
+            update_modified=False
+        )
     frappe.db.commit()
